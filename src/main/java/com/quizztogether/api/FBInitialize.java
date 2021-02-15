@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Service
@@ -16,8 +15,9 @@ public class FBInitialize {
     @PostConstruct
     public void initialize() {
         try {
+            ClassLoader classLoader = getClass().getClassLoader();
             FileInputStream serviceAccount =
-                    new FileInputStream("serviceAccountKey.json");
+                    new FileInputStream(classLoader.getResource("serviceAccountKey.json").getFile());
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
