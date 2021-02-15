@@ -20,6 +20,7 @@ public class FBInitialize {
                     new FileInputStream(classLoader.getResource("serviceAccountKey.json").getFile());
 
             FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setDatabaseUrl("https://quizz-together-default-rtdb.europe-west1.firebasedatabase.app/")
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
 
