@@ -15,7 +15,6 @@ public class QuestionController {
 
     @GetMapping("/")
     public List<Question> getAllQuestions() throws ExecutionException, InterruptedException {
-        service.getQuestions(0);
-        return null;
+        return service.getQuestions(0);
     }
 }

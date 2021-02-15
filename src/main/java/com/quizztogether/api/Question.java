@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Question {
     private String statement;
-    private List<String> answers = new ArrayList<>();
+    private List<String> answers;
 
     public Question(String statement, List<String> answers) {
         this.statement = statement;
@@ -19,6 +19,6 @@ public class Question {
     }
 
     public List<String> getAnswers() {
-        return new UnmodifiableArrayList<>(answers.toArray(new String[0]), answers.size());
+        return answers;
     }
 }

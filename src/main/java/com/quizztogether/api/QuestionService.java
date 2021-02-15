@@ -6,18 +6,22 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
+import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class QuestionService {
 
-    public void getQuestions(int id) throws ExecutionException, InterruptedException {
+    public List<Question> getQuestions(int id) throws ExecutionException, InterruptedException {
+        List<Question> ret = new ArrayList<>();
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        CollectionReference docRef = dbFirestore.collection("questions");
-        // asynchronously retrieve the document
-        ApiFuture<QuerySnapshot> future = docRef.get();
-        // ...
-        // future.get() blocks on response
-        QuerySnapshot document = future.get();
-        System.out.println("Document data: " + document.getDocuments());
+        CollectionReference colRef = dbFirestore.collection("questions");
+        ApiFuture<QuerySnapshot> future = colRef.get();
+        QuerySnapshot col = future.get();
+        for(QueryDocumentSnapshot doc : col.getDocuments())
+        {
+            ret.add(new Question(doc.get("statement", String.class), (List<String>) doc.get("answers")));
+        }
+        return ret;
     }
 }
