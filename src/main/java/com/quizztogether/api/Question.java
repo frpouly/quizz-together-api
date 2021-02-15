@@ -6,12 +6,18 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Question {
+    private String id;
     private String statement;
     private List<String> answers;
 
-    public Question(String statement, List<String> answers) {
+    public Question(String id, String statement, List<String> answers) {
         this.statement = statement;
         this.answers = answers;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getStatement() {

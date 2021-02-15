@@ -20,7 +20,7 @@ public class QuestionService {
         QuerySnapshot col = future.get();
         for(QueryDocumentSnapshot doc : col.getDocuments())
         {
-            ret.add(new Question(doc.get("statement", String.class), (List<String>) doc.get("answers")));
+            ret.add(new Question(doc.getId(), doc.get("statement", String.class), (List<String>) doc.get("answers")));
         }
         return ret;
     }

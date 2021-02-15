@@ -10,10 +10,14 @@ import java.util.concurrent.ExecutionException;
 @RestController
 public class QuestionController {
 
-    @Autowired
+    final
     QuestionService service;
 
-    @GetMapping("/")
+    public QuestionController(QuestionService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/api/v1/questions")
     public List<Question> getAllQuestions() throws ExecutionException, InterruptedException {
         return service.getQuestions(0);
     }
