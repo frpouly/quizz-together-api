@@ -17,7 +17,7 @@ public class QuestionController {
         this.service = service;
     }
 
-    @GetMapping("/api/v1/questions")
+    @GetMapping("/api/questions")
     public List<Question> getAllQuestions() throws ExecutionException, InterruptedException {
         return service.getQuestions(0);
     }
