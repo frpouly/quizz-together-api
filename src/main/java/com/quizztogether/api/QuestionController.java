@@ -19,6 +19,11 @@ public class QuestionController {
 
     @GetMapping("/api/questions")
     public List<Question> getAllQuestions() throws ExecutionException, InterruptedException {
-        return service.getQuestions(0);
+        return service.getQuestions();
+    }
+
+    @GetMapping("/api/questions/random")
+    public Question getRandomQuestion() throws ExecutionException, InterruptedException {
+        return service.getRandomQuestion();
     }
 }
