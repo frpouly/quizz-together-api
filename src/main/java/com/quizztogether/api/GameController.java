@@ -23,8 +23,12 @@ public class GameController {
     }
 
     @GetMapping("/api/game/{id}/add_player/{name}")
-    public boolean createPlayer(@PathVariable String id, @PathVariable String name)
-    {
+    public boolean createPlayer(@PathVariable String id, @PathVariable String name) {
         return model.addAPlayer(id, new Player(name));
+    }
+
+    @GetMapping("/api/game/{idGame}/{idPlayer}/{answer}")
+    public void makeAnswer(@PathVariable String idGame, @PathVariable String idPlayer, @PathVariable String answer) {
+        
     }
 }

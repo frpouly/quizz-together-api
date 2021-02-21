@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class Question {
     private String id;
     private String statement;
-    private List<String> answers;
+    private List<Answer> answers;
 
-    public Question(String id, String statement, List<String> answers) {
+    public Question(String id, String statement, List<Answer> answers) {
         this.statement = statement;
         this.answers = answers;
         this.id = id;
@@ -24,7 +24,7 @@ public class Question {
         return statement;
     }
 
-    public List<String> getAnswers() {
+    public List<Answer> getAnswers() {
         return answers;
     }
 }

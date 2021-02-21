@@ -19,9 +19,8 @@ public class QuestionService {
         CollectionReference colRef = dbFirestore.collection("questions");
         ApiFuture<QuerySnapshot> future = colRef.get();
         QuerySnapshot col = future.get();
-        for(QueryDocumentSnapshot doc : col.getDocuments())
-        {
-            ret.add(new Question(doc.getId(), doc.get("statement", String.class), (List<String>) doc.get("answers")));
+        for(QueryDocumentSnapshot doc : col.getDocuments()) {
+            ret.add(new Question(doc.getId(), doc.get("statement", String.class), (List<Answer>) doc.get("answers")));
         }
         return ret;
     }
@@ -35,6 +34,6 @@ public class QuestionService {
                 .get();
         QuerySnapshot questionRandom = future.get();
         QueryDocumentSnapshot doc = questionRandom.getDocuments().get(0);
-        return new Question(doc.getId(), doc.get("statement", String.class), (List<String>) doc.get("answers"));
+        return new Question(doc.getId(), doc.get("statement", String.class), (List<Answer>) doc.get("answers"));
     }
 }
