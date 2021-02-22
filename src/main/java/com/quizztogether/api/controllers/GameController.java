@@ -19,7 +19,7 @@ public class GameController {
     }
 
     @GetMapping("/api/game/create")
-    public Game getAllQuestions() {
+    public Game createGame() {
         return model.createGame();
     }
 

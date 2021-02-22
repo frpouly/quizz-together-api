@@ -2,13 +2,11 @@ package com.quizztogether.api.Models;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@Component
 public class Game {
     private String gameId;
     private List<Player> players = new ArrayList<>();

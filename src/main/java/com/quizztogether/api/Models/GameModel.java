@@ -20,7 +20,7 @@ public class GameModel {
     }
 
     public Game createGame() {
-        Game g = applicationContext.getBean(Game.class);
+        Game g = new Game(applicationContext);
         dictionaryGames.put(g.getGameId(), g);
         return g;
     }
