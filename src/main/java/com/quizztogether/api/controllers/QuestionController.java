@@ -1,6 +1,7 @@
-package com.quizztogether.api;
+package com.quizztogether.api.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.quizztogether.api.Models.Question;
+import com.quizztogether.api.Models.QuestionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,11 +1,13 @@
-package com.quizztogether.api;
+package com.quizztogether.api.Models;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.quizztogether.api.Models.Answer;
+import com.quizztogether.api.Models.Question;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.List;
 import java.util.ArrayList;
@@ -20,7 +22,8 @@ public class QuestionService {
         ApiFuture<QuerySnapshot> future = colRef.get();
         QuerySnapshot col = future.get();
         for(QueryDocumentSnapshot doc : col.getDocuments()) {
-            ret.add(new Question(doc.getId(), doc.get("statement", String.class), (List<Answer>) doc.get("answers")));
+            QuestionDocument questionDocument = doc.toObject(QuestionDocument.class);
+            ret.add(new Question(questionDocument.id, questionDocument.statement, questionDocument.answers));
         }
         return ret;
     }
@@ -34,6 +37,7 @@ public class QuestionService {
                 .get();
         QuerySnapshot questionRandom = future.get();
         QueryDocumentSnapshot doc = questionRandom.getDocuments().get(0);
-        return new Question(doc.getId(), doc.get("statement", String.class), (List<Answer>) doc.get("answers"));
+        QuestionDocument questionDocument = doc.toObject(QuestionDocument.class);
+        return new Question(questionDocument.id, questionDocument.statement, questionDocument.answers);
     }
 }

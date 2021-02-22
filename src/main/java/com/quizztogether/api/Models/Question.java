@@ -1,22 +1,22 @@
-package com.quizztogether.api;
+package com.quizztogether.api.Models;
 
-import com.sun.javafx.UnmodifiableArrayList;
+import com.quizztogether.api.Models.Answer;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 
 public class Question {
-    private String id;
+    private int id;
     private String statement;
     private List<Answer> answers;
 
-    public Question(String id, String statement, List<Answer> answers) {
+    public Question(int id, String statement, List<Answer> answers) {
         this.statement = statement;
         this.answers = answers;
         this.id = id;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
