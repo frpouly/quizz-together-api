@@ -1,15 +1,8 @@
 package com.quizztogether.api.Models;
 
-import com.quizztogether.api.Models.Answer;
-import com.quizztogether.api.Models.Player;
-import com.quizztogether.api.Models.Question;
-import com.quizztogether.api.Models.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -27,7 +20,7 @@ public class Round {
         this.service = service;
         question = service.getRandomQuestion();
         for (int i = 0; i < question.getAnswers().size(); i++) {
-            answersMap.put(question.getAnswers().get(i).getId(), new LinkedList<>());
+            answersMap.put(i, new LinkedList<>());
         }
     }
 

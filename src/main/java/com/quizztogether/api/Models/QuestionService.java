@@ -3,11 +3,8 @@ package com.quizztogether.api.Models;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.quizztogether.api.Models.Answer;
-import com.quizztogether.api.Models.Question;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.List;
 import java.util.ArrayList;

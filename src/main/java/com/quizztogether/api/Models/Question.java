@@ -1,16 +1,13 @@
 package com.quizztogether.api.Models;
 
-import com.quizztogether.api.Models.Answer;
-
-import java.util.HashMap;
 import java.util.List;
 
 public class Question {
     private int id;
     private String statement;
-    private List<Answer> answers;
+    private List<String> answers;
 
-    public Question(int id, String statement, List<Answer> answers) {
+    public Question(int id, String statement, List<String> answers) {
         this.statement = statement;
         this.answers = answers;
         this.id = id;
@@ -24,7 +21,7 @@ public class Question {
         return statement;
     }
 
-    public List<Answer> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 }
