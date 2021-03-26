@@ -5,6 +5,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.List;
 import java.util.ArrayList;
@@ -28,9 +29,7 @@ public class QuestionService {
     public Question getRandomQuestion() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference colRef = dbFirestore.collection("questions");
-        ApiFuture<QuerySnapshot> future = colRef.whereGreaterThanOrEqualTo("id", (int)(Math.random()*(1 + 1)))
-                .orderBy("id", Query.Direction.DESCENDING)
-                .limitToLast(1)
+        ApiFuture<QuerySnapshot> future = colRef.whereEqualTo("id", (int) (new Random().nextFloat() * 15))
                 .get();
         QuerySnapshot questionRandom = future.get();
         QueryDocumentSnapshot doc = questionRandom.getDocuments().get(0);

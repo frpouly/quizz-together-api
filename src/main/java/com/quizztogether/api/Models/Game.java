@@ -40,6 +40,7 @@ public class Game {
         for(Integer p : winners) {
             players.get(p).addPoints(100);
         }
+        currentRound = null;
         return players;
     }
 

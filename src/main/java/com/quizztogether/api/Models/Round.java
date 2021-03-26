@@ -1,5 +1,6 @@
 package com.quizztogether.api.Models;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Component
+@Scope("prototype")
 public class Round {
 
     final
