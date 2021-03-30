@@ -26,10 +26,8 @@ public class GameModel {
     }
 
     public Player addAPlayer(String id, String name) {
-        if(dictionaryGames.containsKey(id)) {
-            Player p = dictionaryGames.get(id).addPlayer(name);
-            return p;
-        }
+        if(dictionaryGames.containsKey(id))
+            return dictionaryGames.get(id).addPlayer(name);
         return null;
     }
 
@@ -38,10 +36,14 @@ public class GameModel {
     }
 
     public Question newRound(String idGame) throws ExecutionException, InterruptedException {
-        return dictionaryGames.get(idGame).newRound();
+        return dictionaryGames.containsKey(idGame) ? dictionaryGames.get(idGame).newRound() : null;
     }
 
     public List<Player> endRound(String idGame) {
-        return dictionaryGames.get(idGame).endRound();
+        return dictionaryGames.containsKey(idGame) ? dictionaryGames.get(idGame).endRound() : null;
+    }
+
+    public Game endGame(String idGame) {
+        return dictionaryGames.containsKey(idGame) ? dictionaryGames.remove(idGame) : null;
     }
 }
