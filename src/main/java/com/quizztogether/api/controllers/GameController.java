@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.ExecutionException;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
+@RequestMapping("/api/game")
 public class GameController {
 
     final
@@ -19,12 +20,12 @@ public class GameController {
         this.model = model;
     }
 
-    @GetMapping("/api/game/create")
+    @GetMapping("/create")
     public Game createGame() {
         return model.createGame();
     }
 
-    @GetMapping("/api/game/{id}/add_player/{name}")
+    @GetMapping("/{id}/add_player/{name}")
     @ResponseBody
     public Player createPlayer(@PathVariable String id, @PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
         Player ret = model.addAPlayer(id, name);
@@ -33,7 +34,7 @@ public class GameController {
         return ret;
     }
 
-    @GetMapping("/api/game/{idGame}/new_round")
+    @GetMapping("/{idGame}/new_round")
     @ResponseBody
     public Question newRound(@PathVariable String idGame, HttpServletRequest request, HttpServletResponse response) throws ExecutionException, InterruptedException {
         Question ret = model.newRound(idGame);
@@ -42,7 +43,7 @@ public class GameController {
         return ret;
     }
 
-    @GetMapping("/api/game/{idGame}/end_round")
+    @GetMapping("/{idGame}/end_round")
     @ResponseBody
     public List<Player> endRound(@PathVariable String idGame, HttpServletRequest request, HttpServletResponse response) {
         List<Player> ret = model.endRound(idGame);
@@ -51,12 +52,12 @@ public class GameController {
         return ret;
     }
 
-    @GetMapping("/api/game/{idGame}/{idPlayer}/{answer}")
+    @GetMapping("/{idGame}/{idPlayer}/{answer}")
     public boolean makeAnswer(@PathVariable String idGame, @PathVariable int idPlayer, @PathVariable int answer) {
         return model.answer(idPlayer, idGame, answer);
     }
 
-    @GetMapping("/api/game/{idGame}/end_game")
+    @GetMapping("/{idGame}/end_game")
     public Game endGame(@PathVariable String idGame, HttpServletRequest request, HttpServletResponse response) {
         Game ret = model.endGame(idGame);
         if(ret == null)
