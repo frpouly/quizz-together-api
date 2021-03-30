@@ -14,6 +14,6 @@ public class SSEController {
 
     public static HashMap<String, List<SseEmitter>> emittersToClients = new HashMap<>();
 
-
+    @RequestMapping(path = "/stream/")
 
 }

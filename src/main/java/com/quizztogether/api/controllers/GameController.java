@@ -20,12 +20,12 @@ public class GameController {
         this.model = model;
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public Game createGame() {
         return model.createGame();
     }
 
-    @GetMapping("/{id}/add_player/{name}")
+    @PostMapping("/{id}/add_player/{name}")
     @ResponseBody
     public Player createPlayer(@PathVariable String id, @PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
         Player ret = model.addAPlayer(id, name);
@@ -34,7 +34,7 @@ public class GameController {
         return ret;
     }
 
-    @GetMapping("/{idGame}/new_round")
+    @PostMapping("/{idGame}/new_round")
     @ResponseBody
     public Question newRound(@PathVariable String idGame, HttpServletRequest request, HttpServletResponse response) throws ExecutionException, InterruptedException {
         Question ret = model.newRound(idGame);
@@ -43,7 +43,7 @@ public class GameController {
         return ret;
     }
 
-    @GetMapping("/{idGame}/end_round")
+    @PutMapping("/{idGame}/end_round")
     @ResponseBody
     public List<Player> endRound(@PathVariable String idGame, HttpServletRequest request, HttpServletResponse response) {
         List<Player> ret = model.endRound(idGame);
@@ -52,12 +52,12 @@ public class GameController {
         return ret;
     }
 
-    @GetMapping("/{idGame}/{idPlayer}/{answer}")
+    @PutMapping("/{idGame}/{idPlayer}/{answer}")
     public boolean makeAnswer(@PathVariable String idGame, @PathVariable int idPlayer, @PathVariable int answer) {
         return model.answer(idPlayer, idGame, answer);
     }
 
-    @GetMapping("/{idGame}/end_game")
+    @DeleteMapping("/{idGame}/end_game")
     public Game endGame(@PathVariable String idGame, HttpServletRequest request, HttpServletResponse response) {
         Game ret = model.endGame(idGame);
         if(ret == null)
