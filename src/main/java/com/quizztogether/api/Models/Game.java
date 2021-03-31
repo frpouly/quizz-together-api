@@ -1,8 +1,11 @@
 package com.quizztogether.api.Models;
 
+import com.quizztogether.api.controllers.SSEGameController;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -44,8 +47,24 @@ public class Game {
         return players;
     }
 
-    public Question newRound() throws ExecutionException, InterruptedException {
+    public Question newRound() {
         currentRound = applicationContext.getBean(Round.class);
+        List<SseEmitter> sseEmitterListToRemove = new ArrayList<>();
+        List<SseEmitter> emitters = SSEGameController.emittersForNewRound.get(gameId);
+        if(emitters != null) {
+            emitters.forEach((SseEmitter emitter) -> {
+                try {
+                    SseEmitter.SseEventBuilder event = SseEmitter.event()
+                            .name("new_round");
+                    emitter.send(event);
+                } catch (IOException e) {
+                    emitter.complete();
+                    sseEmitterListToRemove.add(emitter);
+                    e.printStackTrace();
+                }
+            });
+            SSEGameController.emittersForNewRound.get(gameId).removeAll(sseEmitterListToRemove);
+        }
         return currentRound.getQuestion();
     }
 
