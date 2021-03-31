@@ -39,11 +39,19 @@ public class GameModel {
         return dictionaryGames.containsKey(idGame) ? dictionaryGames.get(idGame).newRound() : null;
     }
 
-    public List<Player> endRound(String idGame) {
+    public Round endRound(String idGame) {
         return dictionaryGames.containsKey(idGame) ? dictionaryGames.get(idGame).endRound() : null;
     }
 
     public Game endGame(String idGame) {
         return dictionaryGames.containsKey(idGame) ? dictionaryGames.remove(idGame) : null;
+    }
+
+    public Game getGame(String idGame) {
+        return dictionaryGames.get(idGame);
+    }
+
+    public Player getPlayer(String idGame, int idPlayer) {
+        return dictionaryGames.get(idGame).getPlayers().get(idPlayer);
     }
 }

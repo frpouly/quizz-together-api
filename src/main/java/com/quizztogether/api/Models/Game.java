@@ -8,6 +8,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 public class Game {
@@ -27,6 +28,21 @@ public class Game {
     public Player addPlayer(String name) {
         Player p = new Player(name, players.size());
         players.add(p);
+        SseEmitter emitter = SSEGameController.emittersForNewPlayer.get(gameId);
+        if(emitter != null)
+        {
+            try {
+                SseEmitter.SseEventBuilder event = SseEmitter.event()
+                        .data(players)
+                        .id(String.valueOf(new Random().nextInt()))
+                        .name("new_player");
+                emitter.send(event);
+                System.out.println(event);
+            } catch (IOException e) {
+                emitter.complete();
+                SSEGameController.emittersForNewPlayer.remove(gameId);
+            }
+        }
         return p;
     }
 
@@ -36,15 +52,16 @@ public class Game {
         return currentRound.addAnswer(p, a);
     }
 
-    public List<Player> endRound() {
+    public Round endRound() {
         if(currentRound == null)
             return null;
         List<Integer> winners = currentRound.getWinners();
+        Round ret = currentRound;
         for(Integer p : winners) {
             players.get(p).addPoints(100);
         }
         currentRound = null;
-        return players;
+        return ret;
     }
 
     public Question newRound() {
@@ -55,8 +72,11 @@ public class Game {
             emitters.forEach((SseEmitter emitter) -> {
                 try {
                     SseEmitter.SseEventBuilder event = SseEmitter.event()
+                            .data("coucou")
+                            .id(String.valueOf(new Random().nextInt()))
                             .name("new_round");
                     emitter.send(event);
+                    System.out.println(event);
                 } catch (IOException e) {
                     emitter.complete();
                     sseEmitterListToRemove.add(emitter);
